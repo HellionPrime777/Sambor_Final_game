@@ -70,7 +70,38 @@ public class Node : MonoBehaviour
 
     }
 
-  
+    public void UpgradeTurret()
+    {
+        if (PlayerStats.money < turretBlueprint.upgradeCost)
+        {
+            Debug.Log("No money");
+            return;
+        }
+
+        PlayerStats.money -= turretBlueprint.upgradeCost;
+
+        Destroy(turret);
+
+        GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
+        turret = _turret;
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 1.05f);
+
+        isUpgraded = true;
+    }
+
+    public void SellTurret()
+    {
+        PlayerStats.money += turretBlueprint.GetSellAmount();
+
+        GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 1.05f);
+
+        Destroy(turret);
+        turretBlueprint = null;
+        isUpgraded = false;
+    }
 
     private void OnMouseDown()
     {
