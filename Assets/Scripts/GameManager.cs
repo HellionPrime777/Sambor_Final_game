@@ -9,9 +9,14 @@ public class GameManager : MonoBehaviour
     public string nextLevel = "Level2";
     public int levelToUnlock = 2;
 
-   
+    public SceneFader sceneFader;
 
     public GameObject completeLevelUi;
+
+    private void Start()
+    {
+        gameIsOver = false;
+    }
 
     #region
     //    код відповідає за керування станом гри і включає наступні функції:
@@ -29,11 +34,6 @@ public class GameManager : MonoBehaviour
     //Метод WinLevel() встановлює значення gameIsOver в true та активує об'єкт completeLevelUi, який відображає екран успішного завершення рівня.
     //Отже, цей код відповідає за керування станом гри, включаючи перевірку на закінчення гри, перемогу на рівні та відображення відповідних екранів інтерфейсу.
     #endregion
-
-    private void Start()
-    {
-        gameIsOver = false;
-    }
 
     void Update()
     {
@@ -63,5 +63,4 @@ public class GameManager : MonoBehaviour
         gameIsOver = true;
         completeLevelUi.SetActive(true);
     }
-
 }
